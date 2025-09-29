@@ -38,12 +38,10 @@ jobs:
         id: find_reports
         run: |
           files=$(find extracted -type f -name report.xml \
-                  \( -path "*/Linux/*" -o -path "*/QNX/*" -o -path "*/Ubuntu/*" \))
+                  \( -path "*/linux/*" -o -path "*/qnx/*" -o -path "*/ubuntu/*" \))
           echo "REPORT_FILES<<EOF" >> $GITHUB_ENV
           echo "$files" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-
-
 
       # ✅ Upload the found report.xml files as artifact
       - name: Upload reports
@@ -51,3 +49,4 @@ jobs:
         with:
           name: report.xml
           path: ${{ env.REPORT_FILES }}
+
