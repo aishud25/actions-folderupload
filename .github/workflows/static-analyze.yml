@@ -15,7 +15,7 @@ jobs:
       - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
-          name: report.xml
+          name: report
           path: |
             static_analyze/coding_rule/report/linux/
             static_analyze/coding_rule/report/qnx/
@@ -25,17 +25,17 @@ jobs:
       - name: Download reports
         uses: actions/download-artifact@v4
         with:
-          name: report.xml
+          name: report
           path: downloaded
 
       # Step 3: Show contents
       - name: Show reports
         run: |
           echo "===== LINUX report ====="
-          cat downloaded/static_analyze/coding_rule/report/linux/report.xml || echo "Linux report missing"
+          cat downloaded/static_analyze/coding_rule/report/linux/report || echo "Linux report missing"
           echo
           echo "===== QNX report ====="
-          cat downloaded/static_analyze/coding_rule/report/qnx/report.xml || echo "QNX report missing"
+          cat downloaded/static_analyze/coding_rule/report/qnx/report || echo "QNX report missing"
           echo
           echo "===== UBUNTU report ====="
-          cat downloaded/static_analyze/coding_rule/report/ubuntu/report.xml || echo "Ubuntu report missing"
+          cat downloaded/static_analyze/coding_rule/report/ubuntu/report || echo "Ubuntu report missing"
