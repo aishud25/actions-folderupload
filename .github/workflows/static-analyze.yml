@@ -6,31 +6,33 @@ on:
 jobs:
   static_analyze:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [linux, qnx, ubuntu]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 1: Upload the report file for this OS
-      - name: Upload report.xml
+      - name: Upload report files
         uses: actions/upload-artifact@v4
         with:
-          name: report-${{ matrix.os }}
-          path: static_analyze/coding_rule/report/${{ matrix.os }}/report.xml
+          name: static-analyze-reports
+          path: |
+            static_analyze/coding_rule/report/linux/report.xml
+            static_analyze/coding_rule/report/qnx/report.xml
+            static_analyze/coding_rule/report/ubuntu/report.xml
 
-      # Step 2: Download the artifact back
-      - name: Download report.xml
+      - name: Download reports
         uses: actions/download-artifact@v4
         with:
-          name: report-${{ matrix.os }}
-          path: downloaded/${{ matrix.os }}
+          name: static-analyze-reports
+          path: downloaded
 
-      # Step 3: Unzip or process (here we just cat the file)
-      - name: Show report.xml content
+      - name: Show report.xml contents
         run: |
-          echo "===== Contents of ${{ matrix.os }} report ====="
-          cat downloaded/${{ matrix.os }}/report.xml
+          echo "===== LINUX report ====="
+          cat downloaded/static_analyze/coding_rule/report/linux/report.xml
+          echo
+          echo "===== QNX report ====="
+          cat downloaded/static_analyze/coding_rule/report/qnx/report.xml
+          echo
+          echo "===== UBUNTU report ====="
+          cat downloaded/static_analyze/coding_rule/report/ubuntu/report.xml
