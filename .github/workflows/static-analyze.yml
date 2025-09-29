@@ -37,6 +37,6 @@ jobs:
         with:
           name: report.xml
           path: |
-            extracted/static_analyze2/coding_rule/report/linux/report.xml
-            extracted/static_analyze2/coding_rule/report/qnx/report.xml
-            extracted/static_analyze2/coding_rule/report/ubuntu/report.xml
+            extracted/static_analyze2/coding_rule/report/linux
+            extracted/static_analyze2/coding_rule/report/qnx
+            extracted/static_analyze2/coding_rule/report/ubuntu
