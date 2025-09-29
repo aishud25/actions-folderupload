@@ -11,6 +11,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Upload static_analyze2.zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: static_analyze2.zip
+          path: static_analyze2.zip
+
+     
+
       # (1) Download the zip artifact
       - name: Download static_analyze2.zip
         uses: actions/download-artifact@v4
