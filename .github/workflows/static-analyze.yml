@@ -15,7 +15,7 @@ jobs:
       - name: Download static_analyze2.zip
         uses: actions/download-artifact@v4
         with:
-          name: static_analyze2.zip
+          name: static_analyze2-zip
           path: artifacts
 
       # (2) Unzip
