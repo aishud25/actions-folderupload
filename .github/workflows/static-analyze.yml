@@ -11,43 +11,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ✅ Upload the zip file
       - name: Upload static_analyze2.zip
         uses: actions/upload-artifact@v4
         with:
-          name: static_analyze2.zip
-          path: static_analyze2.zip
+          name: static_analyze2.zip  # ✅ Artifact name
+          path: static_analyze2.zip  # ✅ Actual file name
 
-     
-
-      # (1) Download the zip artifact
+      # ✅ Download the zip artifact
       - name: Download static_analyze2.zip
         uses: actions/download-artifact@v4
         with:
-          name: static_analyze2.zip
+          name: static_analyze2.zip  # ✅ Must match upload name
           path: artifacts
 
-      # (2) Unzip
+      # ✅ Unzip the downloaded file
       - name: Unzip static_analyze2.zip
         run: |
           mkdir -p extracted
           unzip artifacts/static_analyze2.zip -d extracted
           ls -R extracted
 
-      # (3) Find all report.xml files dynamically
-
+      # ✅ Find all report.xml files dynamically
       - name: Find report.xml files
         id: find_reports
         run: |
-          files=$(find extracted/static_analyze2 -type f -name report.xml \
+          files=$(find extracted -type f -name report.xml \
                   \( -path "*/linux/*" -o -path "*/qnx/*" -o -path "*/ubuntu/*" \))
           echo "REPORT_FILES=$files" >> $GITHUB_ENV
 
-
-      # (4) Upload the found report.xml files as artifact
-      
+      # ✅ Upload the found report.xml files as artifact
       - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
           name: report.xml
           path: ${{ env.REPORT_FILES }}
-
