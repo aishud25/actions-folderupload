@@ -1,0 +1,36 @@
+name: Static Analyze Reports
+
+on:
+  workflow_dispatch:
+
+jobs:
+  static_analyze:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [linux, qnx, ubuntu]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 1: Upload the report file for this OS
+      - name: Upload report.xml
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-${{ matrix.os }}
+          path: static_analyze/coding_rule/report/${{ matrix.os }}/report.xml
+
+      # Step 2: Download the artifact back
+      - name: Download report.xml
+        uses: actions/download-artifact@v4
+        with:
+          name: report-${{ matrix.os }}
+          path: downloaded/${{ matrix.os }}
+
+      # Step 3: Unzip or process (here we just cat the file)
+      - name: Show report.xml content
+        run: |
+          echo "===== Contents of ${{ matrix.os }} report ====="
+          cat downloaded/${{ matrix.os }}/report.xml
