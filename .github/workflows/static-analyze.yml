@@ -11,6 +11,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: List repo files
+        run: ls -R
+
       # Step 1: Upload the three report.xml files
       - name: Upload reports
         uses: actions/upload-artifact@v4
