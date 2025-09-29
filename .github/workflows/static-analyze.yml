@@ -44,9 +44,24 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       # ✅ Upload the found report.xml files as artifact
-      - name: Upload reports
+      # Upload Linux report
+      - name: Upload Linux report
         uses: actions/upload-artifact@v4
         with:
-          name: report.xml
-          path: ${{ env.REPORT_FILES }}
+          name: linux-report
+          path: extracted/**/linux/**/report.xml
+      
+      # Upload QNX report
+      - name: Upload QNX report
+        uses: actions/upload-artifact@v4
+        with:
+          name: qnx-report
+          path: extracted/**/qnx/**/report.xml
+      
+      # Upload Ubuntu report
+      - name: Upload Ubuntu report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-report
+          path: extracted/**/ubuntu/**/report.xml
 
