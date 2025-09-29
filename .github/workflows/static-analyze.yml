@@ -17,9 +17,9 @@ jobs:
         with:
           name: report.xml
           path: |
-            static_analyze/coding_rule/report/linux/report.xml
-            static_analyze/coding_rule/report/qnx/report.xml
-            static_analyze/coding_rule/report/ubuntu/report.xml
+            static_analyze/coding_rule/report/linux/
+            static_analyze/coding_rule/report/qnx/
+            static_analyze/coding_rule/report/ubuntu/
 
       # Step 2: Download the uploaded artifact
       - name: Download reports
