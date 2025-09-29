@@ -11,28 +11,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload report files
+      # Step 1: Upload the three report.xml files
+      - name: Upload reports
         uses: actions/upload-artifact@v4
         with:
-          name: static-analyze-reports
+          name: report.xml
           path: |
             static_analyze/coding_rule/report/linux/report.xml
             static_analyze/coding_rule/report/qnx/report.xml
             static_analyze/coding_rule/report/ubuntu/report.xml
 
+      # Step 2: Download the uploaded artifact
       - name: Download reports
         uses: actions/download-artifact@v4
         with:
-          name: static-analyze-reports
+          name: report.xml
           path: downloaded
 
-      - name: Show report.xml contents
+      # Step 3: Show contents
+      - name: Show reports
         run: |
           echo "===== LINUX report ====="
-          cat downloaded/static_analyze/coding_rule/report/linux/report.xml
+          cat downloaded/static_analyze/coding_rule/report/linux/report.xml || echo "Linux report missing"
           echo
           echo "===== QNX report ====="
-          cat downloaded/static_analyze/coding_rule/report/qnx/report.xml
+          cat downloaded/static_analyze/coding_rule/report/qnx/report.xml || echo "QNX report missing"
           echo
           echo "===== UBUNTU report ====="
-          cat downloaded/static_analyze/coding_rule/report/ubuntu/report.xml
+          cat downloaded/static_analyze/coding_rule/report/ubuntu/report.xml || echo "Ubuntu report missing"
