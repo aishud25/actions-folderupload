@@ -1,0 +1,27 @@
+name: Unzip and Find XML Files
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  unzip-and-list-xml:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Unzip all .zip files
+        run: |
+          echo "Unzipping all .zip files in the repository..."
+          find . -type f -name "*.zip" | while read zipfile; do
+            unzip -o "$zipfile" -d "$(dirname "$zipfile")"
+          done
+
+      - name: Find all .xml files
+        run: |
+          echo "Listing all .xml files after unzipping:"
+          find . -type f -name "*.xml"
