@@ -1,4 +1,4 @@
-name: Unzip and Find All XML Files
+name: Find XML Files in Repository
 
 on:
   push:
@@ -7,26 +7,29 @@ on:
   pull_request:
 
 jobs:
-  scan-xml-files:
+  find-xml-files:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Unzip all .zip files recursively
+      - name: Unzip all .zip files
         run: |
-          echo "🔍 Searching for .zip files..."
-          find . -type f -iname "*.zip" | while read zipfile; do
-            echo "📂 Unzipping: $zipfile"
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "❌ Failed to unzip: $zipfile"
+          echo "🔍 Searching for .zip files to unzip..."
+          find . -type f -name "*.zip" | while read zipfile; do
+            echo "📂 Unzipping $zipfile..."
+            unzip -o "$zipfile" -d "$(dirname "$zipfile")"
           done
 
-      - name: List all .xml files in repository
+      - name: Find all .xml files
         run: |
-          echo "📄 Searching for .xml files in all folders..."
-          find . -type f -iname "*.xml" > xml_files.txt
-          cat xml_files.txt
+          echo "📄 Listing all .xml files in the repository:"
+          find . -type f -name "*.xml"
+
+      - name: Save XML file list to artifact
+        run: |
+          find . -type f -name "*.xml" > xml_files.txt
 
       - name: Upload XML file list
         uses: actions/upload-artifact@v3
