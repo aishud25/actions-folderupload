@@ -14,13 +14,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Unzip all .zip files
+
+      - name: Unzip all .zip files with logging
         run: |
           echo "🔍 Searching for .zip files to unzip..."
-          find . -type f -name "*.zip" | while read zipfile; do
-            echo "📂 Unzipping $zipfile..."
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")"
+          find . -type f -iname "*.zip" | while read zipfile; do
+            echo "📂 Attempting to unzip: $zipfile"
+            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "❌ Failed to unzip: $zipfile"
           done
+
 
       - name: Find all .xml files
         run: |
