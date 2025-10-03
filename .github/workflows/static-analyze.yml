@@ -12,24 +12,24 @@ jobs:
         uses: actions/checkout@v4
 
       # ✅ Upload the zip file
-      - name: Upload static_analyze2.zip
+      - name: Upload static_analyze.zip
         uses: actions/upload-artifact@v4
         with:
-          name: static_analyze2.zip  # ✅ Artifact name
-          path: static_analyze2.zip  # ✅ Actual file name
+          name: static_analyze.zip  # ✅ Artifact name
+          path: static_analyze.zip  # ✅ Actual file name
 
       # ✅ Download the zip artifact
-      - name: Download static_analyze2.zip
+      - name: Download static_analyze.zip
         uses: actions/download-artifact@v4
         with:
-          name: static_analyze2.zip  # ✅ Must match upload name
+          name: static_analyze.zip  # ✅ Must match upload name
           path: artifacts
 
       # ✅ Unzip the downloaded file
-      - name: Unzip static_analyze2.zip
+      - name: Unzip static_analyze.zip
         run: |
           mkdir -p extracted
-          unzip artifacts/static_analyze2.zip -d extracted
+          unzip artifacts/static_analyze.zip -d extracted
           ls -R extracted
 
       # ✅ Find all report.xml files dynamically
