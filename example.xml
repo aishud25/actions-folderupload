@@ -1,0 +1,5 @@
+./static_analyze/flow/report/qnx/report.xml
+./static_analyze/flow/report/linux/report.xml
+./static_analyze/coding_rule/report/qnx/report.xml
+./static_analyze/coding_rule/report/linux/report.xml
+./static_analyze/coding_rule/report/ubuntu/report.xml
