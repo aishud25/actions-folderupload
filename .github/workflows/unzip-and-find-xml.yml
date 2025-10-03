@@ -14,25 +14,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Unzip all .zip files
+
+      - name: Unzip all .zip files with logging
         run: |
           echo "🔍 Searching for .zip files to unzip..."
-          find . -type f -name "*.zip" | while read zipfile; do
-            echo "📂 Unzipping $zipfile..."
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")"
+          find . -type f -iname "*.zip" | while read zipfile; do
+            echo "📂 Attempting to unzip: $zipfile"
+            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "❌ Failed to unzip: $zipfile"
           done
-
       - name: Find all .xml files
         run: |
           echo "📄 Listing all .xml files in the repository:"
           find . -type f -name "*.xml"
-
-      - name: Save XML file list to artifact
-        run: |
-          find . -type f -name "*.xml" > xml_files.txt
-
-      - name: Upload XML file list
-        uses: actions/upload-artifact@v3
-        with:
-          name: xml-file-list
-          path: xml_files.txt
