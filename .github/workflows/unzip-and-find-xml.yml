@@ -24,7 +24,7 @@ jobs:
 
       - name: Find all .xml files in repository
         run: |
-          echo "📄 Searching for .xml files in all folders..."
+          echo "Searching for .xml files in all folders..."
           find . -type f -iname "*.xml" > xml_files.txt
           echo "Found XML files:"
           cat xml_files.txt
