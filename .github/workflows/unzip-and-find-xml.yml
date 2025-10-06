@@ -1,4 +1,4 @@
-name: Find All XML Files in Repository
+name: Use Custom XML Finder
 
 on:
   push:
@@ -7,27 +7,15 @@ on:
   pull_request:
 
 jobs:
-  scan-xml:
+  find-xml:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Unzip all .zip files recursively
-        run: |
-          echo "Searching for .zip files..."
-          find . -type f -iname "*.zip" | while read zipfile; do
-            echo "Unzipping: $zipfile"
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "Failed to unzip: $zipfile"
-          done
-
-      - name: Find all .xml files in repository
-        run: |
-          echo "Searching for .xml files in all folders..."
-          find . -type f -iname "*.xml" > xml_files.txt
-          echo "Found XML files:"
-          cat xml_files.txt
+      - name: Run XML Finder Action
+        uses: ./.github/actions/find-xml
 
       - name: Upload XML file list
         uses: actions/upload-artifact@v4
