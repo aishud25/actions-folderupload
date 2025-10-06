@@ -18,15 +18,15 @@ jobs:
         run: |
           echo "🔍 Searching for .zip files..."
           find . -type f -iname "*.zip" | while read zipfile; do
-            echo "📂 Unzipping: $zipfile"
-            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "❌ Failed to unzip: $zipfile"
+            echo "Unzipping: $zipfile"
+            unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "Failed to unzip: $zipfile"
           done
 
       - name: Find all .xml files in repository
         run: |
           echo "📄 Searching for .xml files in all folders..."
           find . -type f -iname "*.xml" > xml_files.txt
-          echo "✅ Found XML files:"
+          echo "Found XML files:"
           cat xml_files.txt
 
       - name: Upload XML file list
