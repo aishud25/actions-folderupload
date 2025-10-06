@@ -1,0 +1,16 @@
+name: "Find XML Files"
+description: "Unzips all .zip files and finds all .xml files in the repository"
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        echo "Unzipping all .zip files..."
+        find . -type f -iname "*.zip" | while read zipfile; do
+          echo "Unzipping: $zipfile"
+          unzip -o "$zipfile" -d "$(dirname "$zipfile")" || echo "Failed to unzip: $zipfile"
+        done
+
+        echo "Finding all .xml files..."
+        find . -type f -iname "*.xml" > xml_files.txt
+        echo "Found XML files:"
+        cat xml_files.txt
