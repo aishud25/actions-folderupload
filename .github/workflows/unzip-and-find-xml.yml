@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run XML Finder Action
-        uses: ./github/actions/find-xml
+        uses: ./.github/actions/find-xml
 
       - name: Upload XML file list
         uses: actions/upload-artifact@v4
